@@ -5,23 +5,21 @@
 #include <unistd.h>
 #include "web_interface.h"
 #include "model.h"
+#include "geom_trig.h"
 
 int COUNTER = 0;
-DOM dom; 
+DOMState dom; 
 
-void initDom(int canvas_width, int canvas_height) {
-    dom.canvas_width = canvas_width;
-    dom.canvas_height = canvas_height;
-    dom.total_inside  = 0;
-    dom.total_outside  = 0;
+void initDom(int canvas_side) {
+    dom.canvasSide = canvas_side;
+    dom.totalInside  = 0;
+    dom.totalOutside  = 0;
 }
 
-int* pseudo_random_point(int xmax, int ymax) { 
-    int x = rand() % xmax;
-    int y = rand() % ymax;
-    int* ret;//malloc(sizeof(int) * 2);
-    ret[0] = x;
-    ret[1] = y;
+Point pseudo_random_point(int max) { 
+    Point ret;
+    ret.x = rand() % max;
+    ret.y = rand() % max;
     return ret;
 }
 
@@ -36,11 +34,14 @@ void EMSCRIPTEN_KEEPALIVE stop() {
 }
 
 void loop() {
-    int* points = pseudo_random_point(300, 300);
-    COUNTER ++;
-    dom.total_inside++;
+    dom.lastPoint = pseudo_random_point(dom.canvasSide);
 
-    update_webpage(points[0], points[1], COUNTER);    
+    if (isInside(dom.lastPoint, dom.canvasSide)) {
+        dom.totalInside++;
+    } else {
+        dom.totalOutside++;
+    }
+    update_webpage(dom); 
 }
 
 void EMSCRIPTEN_KEEPALIVE start() {

@@ -1,9 +1,16 @@
 #ifndef MODEL_H
 #define MODEL_H
+
 typedef struct {
-  int canvas_width;
-  int canvas_height;
-  int total_inside;
-  int total_outside;
-} DOM;
+  int x;
+  int y;
+} Point;
+
+typedef struct {
+  int canvasSide;
+  int totalInside;
+  int totalOutside;
+  Point lastPoint;
+} DOMState;
+
 #endif
