@@ -6,8 +6,10 @@
 //#include "web_interface.h"
 char* CANVAS_ID = "canvas";
 
-//function resetCanvas() 
-EM_JS(void, resetCanvas, (), {
+//function reset_webpage() 
+EM_JS(void, reset_webpage, (), {
+    const field = document.getElementById('iterations');
+    field.innerHTML = "";
     const canvas  = document.getElementById("canvas");
     const context = canvas.getContext('2d');
     context.clearRect(0, 0, canvas.width, canvas.height);
@@ -21,15 +23,10 @@ EM_JS(void, resetCanvas, (), {
     context.fill();
 });
 
-//function updateCounter() 
-EM_JS(void, updateCounter, (int count), {
+//function update_webpage(x,y,count) 
+EM_JS(void, update_webpage, (int x, int y, int count), {
     const field = document.getElementById('iterations');
     field.innerHTML = "" + count;
-});
-
-
-//function updateCanvas(x,y)
-EM_JS(void, updateCanvas, (int x, int y), {
     console.log("Canvas updated, point = [%d, %d]", x, y);
     const ctx = document.getElementById("canvas").getContext("2d");
     ctx.fillStyle = "rgba(200, 100, 100, 0.5)";
