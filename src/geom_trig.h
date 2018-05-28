@@ -3,5 +3,5 @@
 #include "model.h"
 #include <stdbool.h>
 int isInside(Point point, int canvasSide);
-double computePI(DOMState state);
+double computePI(int totalInside, int totalOutside);
 #endif

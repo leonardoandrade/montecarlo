@@ -35,13 +35,16 @@ void EMSCRIPTEN_KEEPALIVE stop() {
 
 void loop() {
     dom.lastPoint = pseudo_random_point(dom.canvasSide);
-
+ 
     if (isInside(dom.lastPoint, dom.canvasSide)) {
         dom.totalInside++;
     } else {
         dom.totalOutside++;
     }
-    update_webpage(dom); 
+
+    double pi = computePI(dom.totalInside, dom.totalOutside);
+
+    update_webpage(dom.lastPoint.x, dom.lastPoint.y, dom.totalInside, dom.totalOutside, pi); 
 }
 
 void EMSCRIPTEN_KEEPALIVE start() {
@@ -49,6 +52,7 @@ void EMSCRIPTEN_KEEPALIVE start() {
 }
 
 int main(int argc, char ** argv) {
+    initDom(300);
     reset_webpage();
     printf("WebAssembly module loaded\n");
 }
