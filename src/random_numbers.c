@@ -3,7 +3,7 @@
 #include <stdio.h>
 
 #define PRIME_X 5
-#define PRIME_Y 7
+#define PRIME_Y 17
 
 Point pseudo_random_point(int max) { 
     Point ret;
@@ -26,8 +26,8 @@ float van_der_corput_number(int n, int prime_base) {
 
 Point quasi_random_point(int max, int seq) {
   Point ret;
-  ret.x = van_der_corput_number(seq, PRIME_X) * max;
-  ret.y = van_der_corput_number(seq, PRIME_Y) * max;
+  ret.x = (double)van_der_corput_number(seq, PRIME_X) * (double)max;
+  ret.y = (double)van_der_corput_number(seq, PRIME_Y) * (double)max;
   return ret;
 }
 

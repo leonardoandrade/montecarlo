@@ -2,8 +2,8 @@
 #define MODEL_H
 
 typedef struct {
-  int x;
-  int y;
+  double x;
+  double y;
 } Point;
 
 typedef struct {

@@ -6,7 +6,7 @@
 
 bool isInside(Point point, int canvas_side) {
   float distance_from_center = sqrt((point.x * point.x) + (point.y * point.y));
-  return distance_from_center <= canvas_side;
+  return distance_from_center < (canvas_side - 0.5);
 }
 
 double computePI(int totalInside, int totalOutside) {

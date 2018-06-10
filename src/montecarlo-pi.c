@@ -53,9 +53,9 @@ void loop() {
 
     double pi_pseudo = computePI(dom.totalInsidePseudo, dom.totalOutsidePseudo);
 
-    update_webpage(
-        pointQuasi.x, pointQuasi.y, dom.totalInsideQuasi, dom.totalOutsideQuasi, pi_quasi,
-        pointPseudo.x, pointPseudo.y, dom.totalInsidePseudo, dom.totalOutsidePseudo, pi_pseudo
+    update_webpage(counter,
+        pointQuasi.x, pointQuasi.y, pi_quasi,
+        pointPseudo.x, pointPseudo.y, pi_pseudo
     ); 
 }
 
