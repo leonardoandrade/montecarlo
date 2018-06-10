@@ -1,6 +1,6 @@
 all: clean
-	mkdir -p public
-	cp src/index.html ./public
-	emcc src/montecarlo-pi.c  src/web_interface.c src/geom_trig.c src/random_numbers.c -s WASM=1 -O3 -o ./public/montecarlo-pi.js
+	mkdir -p docs
+	cp src/index.html ./docs
+	emcc src/montecarlo-pi.c  src/web_interface.c src/geom_trig.c src/random_numbers.c -s WASM=1 -O3 -o ./docs/montecarlo-pi.js
 clean:
-	rm -f public/*
+	rm -f docs/*
