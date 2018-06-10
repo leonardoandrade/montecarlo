@@ -3,11 +3,35 @@
     <title>WebAssembly Example</title>
   </head>
   <body>
-    <div style="border:1px gray solid; width:300px">
-      <canvas id="canvas" width="300" height="300"></canvas>
-    </div>
-    <p> #iterations: <span id="iterations">0</span></p>
-   
+    <table>
+      <tr>
+        <td>
+          <canvas id="canvas_quasi_random" width="300" height="300"></canvas>
+        </td>       
+        <td><span style="width:100px"></span></td>
+        <td>
+        <canvas id="canvas_pseudo_random" width="300" height="300"></canvas>
+        </td>
+      </tr>
+      <tr>
+        <td>
+            <p> #inside: <span id="pointsInside_quasi_random">0</span></p>
+            <p> #outside: <span id="pointsOutside_quasi_random">0</span></p>
+            <p> #PI: <span id="pi_quasi_random">0</span></p>
+            <p> #Delta: <span id="pi_divergence_quasi_random">0</span></p>
+
+        </td>
+        <td></td>
+        <td>
+            <p> #inside: <span id="pointsInside_pseudo_random">0</span></p>
+            <p> #outside: <span id="pointsOutside_pseudo_random">0</span></p>
+            <p> #PI: <span id="pi_pseudo_random">0</span></p>
+            <p> #Delta: <span id="pi_divergence_pseudo_random">0</span></p>
+
+        </td>
+      </tr>
+        
+
     <br>
     <button id="start_button">Start</button>
     <button id="stop_button">Stop</button>

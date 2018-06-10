@@ -8,9 +8,10 @@ typedef struct {
 
 typedef struct {
   int canvasSide;
-  int totalInside;
-  int totalOutside;
-  Point lastPoint;
+  int totalInsideQuasi;
+  int totalOutsideQuasi;
+  int totalInsidePseudo;
+  int totalOutsidePseudo;
 } DOMState;
 
 #endif

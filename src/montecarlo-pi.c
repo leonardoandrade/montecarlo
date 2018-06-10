@@ -6,27 +6,24 @@
 #include "web_interface.h"
 #include "model.h"
 #include "geom_trig.h"
+#include "random_numbers.h"
+#include "montecarlo-pi.h"
 
-int COUNTER = 0;
+int counter = 0;
 DOMState dom; 
 
 void initDom(int canvas_side) {
     dom.canvasSide = canvas_side;
-    dom.totalInside  = 0;
-    dom.totalOutside  = 0;
-}
-
-Point pseudo_random_point(int max) { 
-    Point ret;
-    ret.x = rand() % max;
-    ret.y = rand() % max;
-    return ret;
+    dom.totalInsideQuasi  = 0;
+    dom.totalOutsideQuasi  = 0;
+    dom.totalInsidePseudo  = 0;
+    dom.totalOutsidePseudo  = 0;
 }
 
 
 void EMSCRIPTEN_KEEPALIVE reset() {
     emscripten_cancel_main_loop();
-    reset_webpage();
+    reset_webpage(dom.canvasSide);
 }
 
 void EMSCRIPTEN_KEEPALIVE stop() {
@@ -34,25 +31,40 @@ void EMSCRIPTEN_KEEPALIVE stop() {
 }
 
 void loop() {
-    dom.lastPoint = pseudo_random_point(dom.canvasSide);
+
+    counter++;
+    Point pointQuasi = quasi_random_point(dom.canvasSide, counter);
  
-    if (isInside(dom.lastPoint, dom.canvasSide)) {
-        dom.totalInside++;
+    if (isInside(pointQuasi, dom.canvasSide)) {
+        dom.totalInsideQuasi++;
     } else {
-        dom.totalOutside++;
+        dom.totalOutsideQuasi++;
     }
 
-    double pi = computePI(dom.totalInside, dom.totalOutside);
+    double pi_quasi = computePI(dom.totalInsideQuasi, dom.totalOutsideQuasi);
 
-    update_webpage(dom.lastPoint.x, dom.lastPoint.y, dom.totalInside, dom.totalOutside, pi); 
+    Point pointPseudo = pseudo_random_point(dom.canvasSide);
+ 
+    if (isInside(pointPseudo, dom.canvasSide)) {
+        dom.totalInsidePseudo++;
+    } else {
+        dom.totalOutsidePseudo++;
+    }
+
+    double pi_pseudo = computePI(dom.totalInsidePseudo, dom.totalOutsidePseudo);
+
+    update_webpage(
+        pointQuasi.x, pointQuasi.y, dom.totalInsideQuasi, dom.totalOutsideQuasi, pi_quasi,
+        pointPseudo.x, pointPseudo.y, dom.totalInsidePseudo, dom.totalOutsidePseudo, pi_pseudo
+    ); 
 }
 
 void EMSCRIPTEN_KEEPALIVE start() {
-    emscripten_set_main_loop(loop, 10000, 1);
+    emscripten_set_main_loop(loop, 60, 1);
 }
 
 int main(int argc, char ** argv) {
-    initDom(300);
-    reset_webpage();
+    initDom(600);
+    reset_webpage(dom.canvasSide);
     printf("WebAssembly module loaded\n");
 }
