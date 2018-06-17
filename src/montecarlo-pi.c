@@ -20,7 +20,6 @@ void initDom(int canvas_side) {
     dom.totalOutsidePseudo  = 0;
 }
 
-
 void EMSCRIPTEN_KEEPALIVE reset() {
     emscripten_cancel_main_loop();
     reset_webpage(dom.canvasSide);

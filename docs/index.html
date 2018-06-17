@@ -25,7 +25,7 @@
         </table>
       </td>
       <td>
-          
+      <h1><p id="countdown"></p></h1>
       </td>
       <td>
         <h3>Pseudo-random</h3>
@@ -49,9 +49,9 @@
       <td>
         <canvas id="canvas_quasi_random" width="300" height="300"></canvas>
       </td>
-      <td>
+      <td style="vertical-align: top">
           <p> #samples:</p>
-          <p>
+          <p style="font-weight: bold;">
             <span id="samples">0</span>
           </p>
       </td>
@@ -82,6 +82,25 @@
   document.getElementById('stop_button').addEventListener('click', () => {
     _stop();
   });
+
+  const startUp = (countdown) => {
+    document.getElementById("countdown").innerHTML = countdown;
+    if(countdown === 0) {
+      document.getElementById("countdown").innerHTML = "GO!";
+      setTimeout(() => {
+        document.getElementById("countdown").innerHTML = "";
+        _start();
+        }, 
+         500);
+      
+    }
+    else {
+      setTimeout(() => { startUp(countdown-1) }, 1000);
+    };
+  };
+
+  startUp(5)
+
 </script>
 
 </html>
